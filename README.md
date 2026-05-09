@@ -1,4 +1,4 @@
-# Fraud Detection Project (LD7187)
+# Fraud Detection Project
 
 ## Description
 This project tries to detect fake credit card transactions (fraud) using machine learning.
@@ -194,5 +194,4 @@ Simple flow:
 - If needed, tune threshold after training instead of always using 0.50
 
 ## Final Note
-This project is mainly for learning and comparison.
 It shows a full end-to-end fraud detection workflow in a clear and practical way.
