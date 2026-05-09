@@ -1,99 +1,111 @@
-# Fraud Detection — LD7187 Machine Learning on Cloud
+# Fraud Detection Project (LD7187)
 
-Group project for module LD7187 at Northumbria University.  
-Builds and evaluates a machine learning pipeline to detect fraudulent credit card transactions.
+## Description
+This project builds a full machine learning pipeline to spot fraud in credit card transactions.
 
----
+In simple terms, it:
+- reads the transaction data
+- explores patterns in normal vs fraud transactions
+- prepares the data for machine learning
+- trains multiple models
+- compares model performance with useful charts and metrics
+
+The goal is to find fraud as accurately as possible, especially in a highly unbalanced dataset where fraud cases are very rare.
+
+## What This Project Does
+- Loads the `creditcard.csv` dataset
+- Runs EDA (charts and quick insights)
+- Creates extra features from raw columns
+- Handles class imbalance using SMOTE
+- Trains 4 models:
+  - Logistic Regression
+  - Random Forest
+  - XGBoost
+  - Neural Network (MLP)
+- Evaluates each model using:
+  - confusion matrix
+  - ROC and PR curves
+  - threshold tuning
+  - feature importance and SHAP plots
 
 ## Project Structure
-
 ```
-fraud_detection/
-├── main.py             # Start here
-├── config.py           # Project settings (paths, tuning values, colors)
-├── data_loader.py      # Load the dataset and print a quick check
-├── eda.py              # Task 2: EDA charts
-├── preprocessing.py    # Task 3: prep data, make features, run SMOTE
-├── models.py           # Task 4: train models and compare CV scores
-├── evaluation.py       # Task 5: metrics, plots, and SHAP
-├── azure_deploy.py     # Azure ML deployment script
-├── requirements.txt    # Python packages needed
-└── outputs/            # Generated plots (created on first run)
+fraud-detection-ml/
+├── main.py
+├── config.py
+├── data_loader.py
+├── eda.py
+├── preprocessing.py
+├── models.py
+├── evaluation.py
+├── colab_deploy.ipynb
+├── requirements.txt
+├── creditcard.csv
+└── outputs/                # created after first run
 ```
 
----
+## File Description
+- `main.py` - Runs the full pipeline from start to finish
+- `config.py` - Stores settings like paths, split size, CV folds, and tuning limits
+- `data_loader.py` - Loads the dataset and prints basic dataset stats
+- `eda.py` - Creates EDA charts (class balance, amount, heatmap, feature plots, timing)
+- `preprocessing.py` - Feature engineering, train/test split, scaling, and SMOTE
+- `models.py` - Trains and tunes all models with cross-validation
+- `evaluation.py` - Final model evaluation charts and reports
+- `colab_deploy.ipynb` - Run the same project in Google Colab
+- `requirements.txt` - Python libraries needed for this project
+- `outputs/` - Saved charts and result files
 
 ## Dataset
+Source: [Kaggle ULB Credit Card Fraud Dataset](https://www.kaggle.com/datasets/mlg-ulb/creditcardfraud)
 
-ULB Credit Card Fraud Detection dataset from Kaggle.  
-Download `creditcard.csv` and place it in this folder before running.
+Quick facts:
+- 284,807 total transactions
+- 492 fraud transactions
+- fraud rate is around 0.17%
 
-- Link: https://www.kaggle.com/datasets/mlg-ulb/creditcardfraud
-- 284,807 transactions | 492 fraud cases (0.17% fraud rate)
-- Features: Time, V1–V28 (PCA), Amount, Class
-
----
+Columns include `Time`, `V1` to `V28`, `Amount`, and `Class`.
 
 ## Setup
+Install dependencies:
 
 ```bash
 pip install -r requirements.txt
 ```
 
----
-
-## Usage
+## How To Run (Local)
+Run the full project:
 
 ```bash
 python main.py
 ```
 
-All output plots are saved to the `outputs/` folder.
+After it finishes, check the `outputs/` folder for all generated charts.
 
----
+## Main Outputs
+You will get charts for:
+- class imbalance
+- amount comparison
+- correlation heatmap
+- feature distributions
+- transaction timing
+- SMOTE impact
+- cross-validation comparison
+- confusion matrices
+- threshold tuning
+- ROC and PR curves
+- feature importance
+- SHAP plots
 
-## Models Trained
+## Run on Google Colab
+Use `colab_deploy.ipynb` if you want to run this in the cloud.
 
-| Model | Technique |
-|-------|-----------|
-| Logistic Regression | Baseline linear model, class_weight=balanced |
-| Random Forest | Ensemble, RandomizedSearchCV tuning |
-| XGBoost | Gradient boosting, scale_pos_weight for imbalance |
-| Neural Network | MLPClassifier, early stopping |
+Basic steps:
+1. Push this repo to GitHub
+2. Open `colab_deploy.ipynb` in Google Colab
+3. Set your repo URL in the notebook
+4. Run cells from top to bottom
 
----
-
-## Outputs Generated
-
-| File | Description |
-|------|-------------|
-| 01_class_distribution.png | Class imbalance bar chart |
-| 02_amount_by_class.png | Transaction amount boxplots |
-| 03_correlation_heatmap.png | Top 10 feature correlations |
-| 04_feature_histograms.png | Feature distributions by class |
-| 05_transaction_timing.png | Fraud timing by hour of day |
-| 06_smote_vs_nosmote.png | SMOTE impact comparison |
-| 07_cv_comparison_all_models.png | CV PR-AUC across all models |
-| cv_*.png | Per-model cross-validation scores |
-| 08_confusion_*.png | Confusion matrix per model |
-| 09_threshold_*.png | Threshold tuning per model |
-| 10_roc_curves.png | ROC curves — all models |
-| 11_pr_curves.png | Precision-Recall curves — all models |
-| 12_feature_importance_rf.png | Random Forest feature importance |
-| 13_shap_bar.png | SHAP bar chart — XGBoost |
-| 14_shap_beeswarm.png | SHAP beeswarm plot — XGBoost |
-
----
-
-## Cloud Deployment (Google Colab — Free)
-
-See `colab_deploy.ipynb` for cloud execution on Google Colab (GCP infrastructure).
-
-Steps:
-1. Upload all `.py` files to a GitHub repo
-2. Open `colab_deploy.ipynb` in Google Colab (colab.research.google.com)
-3. Update the `GITHUB_REPO` variable in Cell 2 with your repo URL
-4. Run all cells top to bottom
-5. Upload `creditcard.csv` when prompted in Cell 3
-
-No account needed beyond a free Google account. No cost.
+## Notes
+- This project is for academic learning and model comparison.
+- Because fraud cases are rare, metrics like Recall, PR-AUC, and F1 are important.
