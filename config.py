@@ -15,14 +15,14 @@ RANDOM_STATE = 42
 # Train/test split size
 TEST_SIZE = 0.20       # keep 20% for testing, 80% for training
 
-# Cross-validation setup
-CV_FOLDS = 3           # number of folds used for validation
+# Cross-validation setup (fewer folds = faster on free-tier Colab)
+CV_FOLDS = 2
 
 # How many random search tries per model
 LR_N_ITER  = 5         # Logistic Regression
-RF_N_ITER  = 3         # Random Forest
-XGB_N_ITER = 10        # XGBoost
-NN_N_ITER  = 8         # Neural Network
+RF_N_ITER  = 2         # Random Forest
+XGB_N_ITER = 3         # XGBoost
+NN_N_ITER  = 3         # Neural Network
 
 # How many rows to use for SHAP plots
 SHAP_SAMPLE = 500

@@ -114,10 +114,10 @@ def _train_logistic_regression(X_train, y_train, cv):
 def _train_random_forest(X_train, y_train, cv):
     print("\n  Training Random Forest...")
     param_grid = {
-        "n_estimators":    [100, 200],
-        "max_depth":       [10, 20],
-        "min_samples_split": [2, 5],
-        "class_weight":    ["balanced"]
+        "n_estimators":      [50, 100],
+        "max_depth":         [10],
+        "min_samples_split": [2],
+        "class_weight":      ["balanced"]
     }
     search = RandomizedSearchCV(
         RandomForestClassifier(random_state=RANDOM_STATE),
@@ -140,11 +140,11 @@ def _train_random_forest(X_train, y_train, cv):
 def _train_xgboost(X_train, y_train, cv, fraud_ratio):
     print("\n  Training XGBoost...")
     param_grid = {
-        "n_estimators":    [100, 200, 300],
-        "max_depth":       [3, 5, 7],
-        "learning_rate":   [0.05, 0.1, 0.2],
-        "subsample":       [0.8, 1.0],
-        "colsample_bytree":[0.8, 1.0]
+        "n_estimators":    [100],
+        "max_depth":       [3, 5],
+        "learning_rate":   [0.1],
+        "subsample":       [0.8],
+        "colsample_bytree":[0.8]
     }
     search = RandomizedSearchCV(
         xgb.XGBClassifier(

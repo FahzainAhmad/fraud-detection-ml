@@ -39,7 +39,7 @@ def preprocess(df: pd.DataFrame):
     2. Drop original Time and Amount columns
     3. Stratified train/test split
     4. RobustScaler on amount-derived features
-    5. Apply SMOTE on training set only
+    5. Apply SMOTE on training set only (partial oversample, not full balance)
     6. SMOTE vs no-SMOTE comparison plot
 
     Parameters
@@ -97,7 +97,8 @@ def preprocess(df: pd.DataFrame):
     # SMOTE
     # Use it on training data only.
     # Using it on test data would leak information and fake better scores.
-    smote = SMOTE(random_state=RANDOM_STATE)
+    # sampling_strategy=0.1 caps fraud at 10% of majority count (faster than full balance).
+    smote = SMOTE(random_state=RANDOM_STATE, sampling_strategy=0.1)
     X_train_res, y_train_res = smote.fit_resample(X_train_scaled, y_train)
 
     print(f"\nAfter SMOTE:")
