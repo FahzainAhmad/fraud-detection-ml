@@ -114,8 +114,8 @@ def _train_logistic_regression(X_train, y_train, cv):
 def _train_random_forest(X_train, y_train, cv):
     print("\n  Training Random Forest...")
     param_grid = {
-        "n_estimators":    [100, 200, 300],
-        "max_depth":       [10, 20, None],
+        "n_estimators":    [100, 200],
+        "max_depth":       [10, 20],
         "min_samples_split": [2, 5],
         "class_weight":    ["balanced"]
     }
